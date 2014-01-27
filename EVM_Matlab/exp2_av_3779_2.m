@@ -1,6 +1,6 @@
 function exp2
     %vidFile = 'F:\SPBSU\Masters\EVM_Matlab\data\warped.avi';
-    vidFile = 'C:\Users\admin\Desktop\Google Drive\Grad School\Master''s\CanonVideos\Maria\3780_cut1.mp4';
+    vidFile = 'C:\Users\admin\Desktop\Google Drive\Grad School\Master''s\CanonVideos\Maria\3779_cut2.mp4';
 
     % Read video
     vid = VideoReader(vidFile);
@@ -22,8 +22,8 @@ function exp2
     temp.cdata = read(vid, 1);
     [rgbframe, ~] = frame2im(temp);
     rgbframe = im2double(rgbframe);
-    intervalx = [135:600];
-    intervaly = [400:800];
+    intervalx = [250:800];
+    intervaly = [650:1200];
     rgbframe = rgbframe(intervalx, intervaly, 1:3);
     rgbframe = rgb2gray(rgbframe);
     
@@ -37,7 +37,7 @@ function exp2
 
     para = [alpha,ratio,minWidth,nOuterFPIterations,nInnerFPIterations,nSORIterations];
     
-    outName = '.\output\3780_cut1_stab.avi';
+    outName = '.\output\3779_cut2_stab.avi';
     
     vidOut = VideoWriter(outName);
     vidOut.FrameRate = fr;
