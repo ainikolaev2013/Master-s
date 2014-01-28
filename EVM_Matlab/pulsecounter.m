@@ -2,7 +2,7 @@ function cnt = pulsecounter(Gdown_stack, cellx, celly, margin, thr)
     fl = 30/60;
     fh = 150/60;
 %    samplingRate = 24;
-   samplingRate = 50; % 25 for 3779
+    samplingRate = 50; % 25 for 3779
     filtered_stack = ideal_bandpassing(Gdown_stack, 1, fl, fh, samplingRate);
     plot(filtered_stack (:, cellx, celly, 1));
     len = length(filtered_stack (:, cellx, celly, 1));
