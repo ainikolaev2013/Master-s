@@ -38,7 +38,7 @@ cropwindow = [x0 x1 y0 y1];
     startIndex(i) = 1;
     endIndex(i) = len;
 
-    temp.cdata = read(vid, startIndex(i));
+    temp.cdata = read(vid, endIndex(i));
     [rgbframe, ~] = frame2im(temp);
     rgbframe = im2double(rgbframe);
 %    frame = rgb2ntsc(rgbframe);
