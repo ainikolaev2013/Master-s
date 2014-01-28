@@ -3,4 +3,5 @@
 *.zip
 *.asv
 *.mov
-*model*.mat
+*model
+*.mat
