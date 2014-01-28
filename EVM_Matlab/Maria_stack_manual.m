@@ -1,4 +1,5 @@
-dataDir = 'E:\Grad School\Master''s\CanonVideos\Maria';
+%dataDir = 'E:\Grad School\Master''s\CanonVideos\Maria';
+dataDir = 'C:\Users\admin\Desktop\Google Drive\Grad School\Master''s\CanonVideos\Maria\';
 resultsDir = 'output';
 
 filename = {'3780_cut1_stab'};
@@ -60,7 +61,7 @@ frame=rgbframe;
             Stack{i}(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
-    save(fullfile(resultsDir,[filename{i} '_stack.mat']), 'Stack');
+    save(fullfile(resultsDir,[filename{i} 'forehead_stack.mat']), 'Stack');
 end;
 
 %filename = {'3780_cut1_stab'};
@@ -122,7 +123,7 @@ frame=rgbframe;
             Stack{i}(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
-    save(fullfile(resultsDir,[filename{i} '_stack.mat']), 'Stack');
+    save(fullfile(resultsDir,[filename{i} 'leftcheek_stack.mat']), 'Stack');
 end;
 
 %filename = {'3780_cut1_stab'};
@@ -184,7 +185,7 @@ frame=rgbframe;
             Stack{i}(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
-    save(fullfile(resultsDir,[filename{i} '_stack.mat']), 'Stack');
+    save(fullfile(resultsDir,[filename{i} 'rightcheek_stack.mat']), 'Stack');
 end;
 
 
@@ -247,7 +248,7 @@ frame=rgbframe;
             Stack{i}(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
-    save(fullfile(resultsDir,[filename{i} '_stack.mat']), 'Stack');
+    save(fullfile(resultsDir,[filename{i} 'forehead_stack.mat']), 'Stack');
 end;
 
 for i=1:numel(filename) 
@@ -307,7 +308,7 @@ frame=rgbframe;
             Stack{i}(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
-    save(fullfile(resultsDir,[filename{i} '_stack.mat']), 'Stack');
+    save(fullfile(resultsDir,[filename{i} 'leftcheek_stack.mat']), 'Stack');
 end;
 
 for i=1:numel(filename) 
@@ -367,7 +368,7 @@ frame=rgbframe;
             Stack{i}(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
-    save(fullfile(resultsDir,[filename{i} '_stack.mat']), 'Stack');
+    save(fullfile(resultsDir,[filename{i} 'rightcheek_stack.mat']), 'Stack');
 end;
 
 disp('Stacks have been built.')
