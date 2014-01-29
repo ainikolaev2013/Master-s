@@ -13,7 +13,7 @@ y1=159;
 
 
 %filename = {'3780_cut1_stab', '3780_cut3_stab'};
-filename = {'3780_cut3_stab'};
+filename = {'3780_cut2_stab2'};
 for i=1:numel(filename) 
 
     inFile = fullfile(dataDir, [filename{i} '.avi']);
