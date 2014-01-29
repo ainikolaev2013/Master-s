@@ -45,8 +45,8 @@ frame=rgbframe;
 
     cropped = imcrop(frame,cropwindow);
     % create  stack
-    Stack{i} = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
-    Stack{i}(1,:,:,:) = cropped;
+    Stack = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
+    Stack(1,:,:,:) = cropped;
 
     k = 1;
     for j=startIndex(i)+1:endIndex(i)
@@ -58,7 +58,7 @@ frame=rgbframe;
             frame = rgb2ntsc(rgbframe);
 
             cropped = imcrop(frame,cropwindow);
-            Stack{i}(k,:,:,:) = cropped;
+            Stack(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
     save(fullfile(resultsDir,[filename{i} 'forehead_stack.mat']), 'Stack');
@@ -107,8 +107,8 @@ frame=rgbframe;
 
     cropped = imcrop(frame,cropwindow);
     % create  stack
-    Stack{i} = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
-    Stack{i}(1,:,:,:) = cropped;
+    Stack = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
+    Stack(1,:,:,:) = cropped;
 
     k = 1;
     for j=startIndex(i)+1:endIndex(i)
@@ -120,7 +120,7 @@ frame=rgbframe;
             frame = rgb2ntsc(rgbframe);
 
             cropped = imcrop(frame,cropwindow);
-            Stack{i}(k,:,:,:) = cropped;
+            Stack(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
     save(fullfile(resultsDir,[filename{i} 'leftcheek_stack.mat']), 'Stack');
@@ -169,8 +169,8 @@ frame=rgbframe;
 
     cropped = imcrop(frame,cropwindow);
     % create  stack
-    Stack{i} = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
-    Stack{i}(1,:,:,:) = cropped;
+    Stack = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
+    Stack(1,:,:,:) = cropped;
 
     k = 1;
     for j=startIndex(i)+1:endIndex(i)
@@ -182,7 +182,7 @@ frame=rgbframe;
             frame = rgb2ntsc(rgbframe);
 
             cropped = imcrop(frame,cropwindow);
-            Stack{i}(k,:,:,:) = cropped;
+            Stack(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
     save(fullfile(resultsDir,[filename{i} 'rightcheek_stack.mat']), 'Stack');
@@ -232,8 +232,8 @@ frame=rgbframe;
 
     cropped = imcrop(frame,cropwindow);
     % create  stack
-    Stack{i} = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
-    Stack{i}(1,:,:,:) = cropped;
+    Stack = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
+    Stack(1,:,:,:) = cropped;
 
     k = 1;
     for j=startIndex(i)+1:endIndex(i)
@@ -245,7 +245,7 @@ frame=rgbframe;
             frame = rgb2ntsc(rgbframe);
 
             cropped = imcrop(frame,cropwindow);
-            Stack{i}(k,:,:,:) = cropped;
+            Stack(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
     save(fullfile(resultsDir,[filename{i} 'forehead_stack.mat']), 'Stack');
@@ -292,8 +292,8 @@ frame=rgbframe;
 
     cropped = imcrop(frame,cropwindow);
     % create  stack
-    Stack{i} = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
-    Stack{i}(1,:,:,:) = cropped;
+    Stack = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
+    Stack(1,:,:,:) = cropped;
 
     k = 1;
     for j=startIndex(i)+1:endIndex(i)
@@ -305,7 +305,7 @@ frame=rgbframe;
             frame = rgb2ntsc(rgbframe);
 
             cropped = imcrop(frame,cropwindow);
-            Stack{i}(k,:,:,:) = cropped;
+            Stack(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
     save(fullfile(resultsDir,[filename{i} 'leftcheek_stack.mat']), 'Stack');
@@ -352,8 +352,8 @@ frame=rgbframe;
 
     cropped = imcrop(frame,cropwindow);
     % create  stack
-    Stack{i} = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
-    Stack{i}(1,:,:,:) = cropped;
+    Stack = zeros(endIndex(i) - startIndex(i) +1, size(cropped,1),size(cropped,2),size(cropped,3));
+    Stack(1,:,:,:) = cropped;
 
     k = 1;
     for j=startIndex(i)+1:endIndex(i)
@@ -365,7 +365,7 @@ frame=rgbframe;
             frame = rgb2ntsc(rgbframe);
 
             cropped = imcrop(frame,cropwindow);
-            Stack{i}(k,:,:,:) = cropped;
+            Stack(k,:,:,:) = cropped;
     end;
     disp(['Stack for ' filename{i} ' has been built.'])
     save(fullfile(resultsDir,[filename{i} 'rightcheek_stack.mat']), 'Stack');
