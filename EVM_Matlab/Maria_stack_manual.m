@@ -6,10 +6,10 @@ filename = {'3780_cut1_stab'};
 
 for i=1:numel(filename) 
 %forehead
-x_left=175;
-x_right=120;
-y_top=225;
-y_bottom=170;
+x0=175;
+y0=120;
+width=50;
+height=50;
     
     inFile = fullfile(dataDir, [filename{i} '.avi']);
 
@@ -17,7 +17,7 @@ fprintf('Processing %s\n', inFile);
 
 vidFile=inFile;
 
-cropwindow = [x_left x_right y_top y_bottom];
+cropwindow = [x0 y0 width height];
 [~,vidName] = fileparts(vidFile);
 
     % Read video
@@ -68,10 +68,10 @@ end;
 
 for i=1:numel(filename) 
 %right cheek
-x_left=120;
-x_right=260;
-y_top=170;
-y_bottom=310;
+x0=120;
+y0=260;
+width=50;
+height=50;
     
     inFile = fullfile(dataDir, [filename{i} '.avi']);
 
@@ -79,7 +79,7 @@ fprintf('Processing %s\n', inFile);
 
 vidFile=inFile;
 
-cropwindow = [x_left x_right y_top y_bottom];
+cropwindow = [x0 y0 width height];
 [~,vidName] = fileparts(vidFile);
 
     % Read video
@@ -130,10 +130,10 @@ end;
 
 for i=1:numel(filename) 
 %left cheek
-x_left=255;
-x_right=255;
-y_top=305;
-y_bottom=305;
+x0=255;
+y0=255;
+width=50;
+height=50;
     
     inFile = fullfile(dataDir, [filename{i} '.avi']);
 
@@ -141,7 +141,7 @@ fprintf('Processing %s\n', inFile);
 
 vidFile=inFile;
 
-cropwindow = [x_left x_right y_top y_bottom];
+cropwindow = [x0 y0 width height];
 [~,vidName] = fileparts(vidFile);
 
     % Read video
@@ -193,10 +193,10 @@ filename = {'3780_cut3_stab'};
 
 for i=1:numel(filename) 
 %forehead
-x_left=225;
-x_right=155;
-y_top=275;
-y_bottom=205;
+x0=225;
+y0=155;
+width=50;
+height=50;
     
     inFile = fullfile(dataDir, [filename{i} '.avi']);
 
@@ -204,7 +204,7 @@ fprintf('Processing %s\n', inFile);
 
 vidFile=inFile;
 
-cropwindow = [x_left x_right y_top y_bottom];
+cropwindow = [x0 y0 width height];
 [~,vidName] = fileparts(vidFile);
 
     % Read video
@@ -253,10 +253,10 @@ end;
 
 for i=1:numel(filename) 
 %right cheek
-x_left=175;
-x_right=300;
-y_top=225;
-y_bottom=350;
+x0=175;
+y0=300;
+width=50;
+height=50;
     
     inFile = fullfile(dataDir, [filename{i} '.avi']);
 
@@ -264,7 +264,7 @@ fprintf('Processing %s\n', inFile);
 
 vidFile=inFile;
 
-cropwindow = [x_left x_right y_top y_bottom];
+cropwindow = [x0 y0 width height];
 [~,vidName] = fileparts(vidFile);
 
     % Read video
@@ -313,10 +313,10 @@ end;
 
 for i=1:numel(filename) 
 %left cheek
-x_left=305;
-x_right=285;
-y_top=355;
-y_bottom=335;
+x0=305;
+y0=285;
+width=50;
+height=50;
     
     inFile = fullfile(dataDir, [filename{i} '.avi']);
 
@@ -324,7 +324,7 @@ fprintf('Processing %s\n', inFile);
 
 vidFile=inFile;
 
-cropwindow = [x_left x_right y_top y_bottom];
+cropwindow = [x0 y0 width height];
 [~,vidName] = fileparts(vidFile);
 
     % Read video
