@@ -20,7 +20,7 @@
         %add noise (in fact it is added to every pixel, but later we sum up
         %them so we can just add a random noise to a sum directly        
         datatrue = reshape(Gdown_stack(cntinterval, cellx, celly, 1:3), ...
-            length(cntinterval), 3);
+            length(cntinterval), 100);
         datargb = ntsc2rgb(datatrue);
         datargbnoisy = datargb + sigma*randn(size(datargb));
         datantscnoisy = rgb2ntsc(datargbnoisy);
@@ -47,7 +47,8 @@
     %compute the average estimate ann its variance of n runs
     for K_target = 1:KMAX
         cnt_spn_avg(K_target)  = sum(cnt_spn(:,K_target)/itnum);
-        vars(K_target) = var(cnt2spn(:,K_target));
+   %     vars(K_target) = var(cnt2spn(:,K_target));
+        vars(K_target) = var(cnt_spn(:,K_target));
     end
     %75 - 14
     cnt_spn;
