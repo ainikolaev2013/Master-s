@@ -22,7 +22,7 @@ load(inFile);
     %count true pulse
     %cnt = pulsecounter(Gdown_stack(cntinterval ,:,:,:), cellx, celly, margin, thr);
     %add noise to frames and build stack for noise frames
-    noiselevel = 75/255;
+    %noiselevel = 75/255; no longer relevant
     iterator_noiselevel=0;
     Gdown_stack_noisy = Gdown_stack;
     sigma = 0.001;
@@ -32,8 +32,6 @@ load(inFile);
     KMAX = 80;   %80
     for sigma=0:0.001:0.005   % needs to be changed to 0.005
         iterator_sigma=iterator_sigma+1;
-        for noiselevel=0:8.5/255:1 % needs to be changed to 10/255
-            iterator_noiselevel=iterator_noiselevel+1;
     %do 100 random trials
     for it = 1:itnum
         %add noise (in fact it is added to every pixel, but later we sum up
@@ -57,7 +55,7 @@ load(inFile);
         Gdown_stack_flt(:, cellx, celly, 1) = datajd(:);
        
         %Save the results
-        Result_JADE(iterator_sigma, iterator_noiselevel, it)={datajd(:)};
+        Result_JADE(iterator_sigma, it)={datajd(:)};
         %count the pulse on filtered stack
        % cnt_jd(it) = pulsecounter(Gdown_stack_flt, cellx, celly, margin, thr);                
         
@@ -71,10 +69,10 @@ load(inFile);
             Gdown_stack_flt(:, cellx, celly, 1) = data_spflt(:);
             %count the pulse on filtered stack
             %cnt_spn(it,K_target) = pulsecounter(Gdown_stack_flt, cellx, celly, margin, thr); 
-            Result_SPFLT(iterator_sigma, iterator_noiselevel, it, K_target)={data_spflt(:)};
+            Result_SPFLT(iterator_sigma, it, K_target)={data_spflt(:)};
             %compute variance
             
-        end
+       
     end
         end
     end
