@@ -84,15 +84,15 @@ load(inFile);
             disp([K_target SPFLT_result]);
             disp(['K_target: ' num2str(K_target) ', number of beats: ' num2str(SPFLT_result)]);
             
-            SPFLT(it, K_target)=SPFLT_result;
-            SPFLT_ref(it, K_target)=SPFLT_ref;
+            SPFLT(iterator_sigma, it, K_target)=SPFLT_result;
+            SPFLT_ref(iterator_sigma, it, K_target)=SPFLT_ref;
             
     end
         end
     end
     
      
-   save(fullfile(resultsDir, [filename '_results.mat']), 'All_SPFLT'); 
+   save(fullfile(resultsDir, [filename '_results.mat']), 'SPFLT', 'SPFLT_ref'); 
   
     %compute the average estimate ann its variance of n runs
     for K_target = 1:KMAX
