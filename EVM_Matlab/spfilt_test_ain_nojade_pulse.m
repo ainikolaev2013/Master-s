@@ -2,7 +2,7 @@ dataDir = './data';
 resultsDir = './output';
 mkdir(resultsDir);
 
-filename = '3780_cut1_stabforehead_stack.mat';  
+filename = '3780_cut3_stabforehead_stack.mat';  
 
 
 
@@ -58,7 +58,19 @@ load(inFile);
       %  Result_JADE(iterator_sigma, it)={datajd(:)};
         %count the pulse on filtered stack
        % cnt_jd(it) = pulsecounter(Gdown_stack_flt, cellx, celly, margin, thr);                
-        
+        n = length(data);
+        samplingRate = 25;
+        wl = 30/60;
+        wh = 150/60;
+        Freq = 1:n;
+        Freq = (Freq-1)/n*samplingRate;
+        mask = Freq > wl & Freq < wh;
+
+        Dimensions(1) = 1;
+        mask = mask(:);
+        mask = repmat(mask, Dimensions);
+
+       
         for K_target = 1:KMAX
             %we actually need NTSC here and data is already in NTSC
             %do filtering with K_target components
@@ -76,10 +88,12 @@ load(inFile);
             %SPFLT_result=sum((data-data_spflt).*(data-data_spflt));
             
             %pulsecounting
-            SPFLT_result = pulsecounter(Gdown_stack_flt, cellx, celly, margin, thr);
             
+            
+            SPFLT_result = pulsecounter(Gdown_stack_flt, mask, cellx, celly, margin, thr);
+    
             %reference pulsecounting
-            SPFLT_ref = pulsecounter(Gdown_stack_noisy, cellx, celly, margin, thr);
+            SPFLT_ref = pulsecounter(Gdown_stack_noisy, cellx, celly, margin, thr);     
             
             disp([K_target SPFLT_result]);
             disp(['K_target: ' num2str(K_target) ', number of beats: ' num2str(SPFLT_result)]);

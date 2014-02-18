@@ -13,7 +13,7 @@
 % License: Please refer to the LICENCE file
 % Date: June 2012
 %
-function filtered = ideal_bandpassing(input, dim, wl, wh, samplingRate)
+function filtered = ideal_bandpassing(input, dim, mask, wl, wh, samplingRate)
 
     if (dim > size(size(input),2))
         error('Exceed maximum dimension');
@@ -26,13 +26,6 @@ function filtered = ideal_bandpassing(input, dim, wl, wh, samplingRate)
     dn = size(Dimensions,2);
     
     
-    Freq = 1:n;
-    Freq = (Freq-1)/n*samplingRate;
-    mask = Freq > wl & Freq < wh;
-    
-    Dimensions(1) = 1;
-    mask = mask(:);
-    mask = repmat(mask, Dimensions);
 
     
     F = fft(input_shifted,[],1);
