@@ -13,7 +13,7 @@
 % License: Please refer to the LICENCE file
 % Date: June 2012
 %
-function filtered = ideal_bandpassing(input, dim, mask, wl, wh, samplingRate)
+function filtered = ideal_bandpassing(input, dim, wl, wh, samplingRate)
 
     if (dim > size(size(input),2))
         error('Exceed maximum dimension');
