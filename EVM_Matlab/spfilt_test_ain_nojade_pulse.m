@@ -88,18 +88,17 @@ load(inFile);
             %SPFLT_result=sum((data-data_spflt).*(data-data_spflt));
             
             %pulsecounting
-            
-            
-            SPFLT_result = pulsecounter(Gdown_stack_flt, mask, cellx, celly, margin, thr);
+        
+            SPFLT_result = pulsecounter(Gdown_stack_flt, cellx, celly, margin, thr);
     
             %reference pulsecounting
-            SPFLT_ref = pulsecounter(Gdown_stack_noisy, cellx, celly, margin, thr);     
+            SPFLT_ref_value= pulsecounter(Gdown_stack_noisy, cellx, celly, margin, thr);     
             
             disp([K_target SPFLT_result]);
             disp(['K_target: ' num2str(K_target) ', number of beats: ' num2str(SPFLT_result)]);
             
             SPFLT(iterator_sigma, it, K_target)=SPFLT_result;
-            SPFLT_ref(iterator_sigma, it, K_target)=SPFLT_ref;
+            SPFLT_ref(iterator_sigma, it, K_target)=SPFLT_ref_value;
             
     end
         end
