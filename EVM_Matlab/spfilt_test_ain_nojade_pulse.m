@@ -58,17 +58,7 @@ load(inFile);
       %  Result_JADE(iterator_sigma, it)={datajd(:)};
         %count the pulse on filtered stack
        % cnt_jd(it) = pulsecounter(Gdown_stack_flt, cellx, celly, margin, thr);                
-        n = length(data);
-        samplingRate = 25;
-        wl = 30/60;
-        wh = 150/60;
-        Freq = 1:n;
-        Freq = (Freq-1)/n*samplingRate;
-        mask = Freq > wl & Freq < wh;
 
-        Dimensions(1) = 1;
-        mask = mask(:);
-        mask = repmat(mask, Dimensions);
 
        
         for K_target = 1:KMAX
