@@ -5,7 +5,7 @@ function data_spflt = filter_sparse(data,K_target)
     %K_target = 25;
     
     winsize = length(data);%min([400 length(data)]);
-    stepsize = 100;
+   
     data_spflt = zeros(size(data));
     for i = 1:winsize:length(data)-winsize+1
         i

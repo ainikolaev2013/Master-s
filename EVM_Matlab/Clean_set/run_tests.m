@@ -24,7 +24,7 @@ dataDir = './data';
 %in the root folder.
 resultsDir = './results';
 %TO DO proper string concantenation
-resultsFile= './reults/run_id_result.mat';
+resultsFile= './results/run_id_result.mat';
 overallResultsFile= 'Results.mat';
 
 
