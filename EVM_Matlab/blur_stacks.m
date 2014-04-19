@@ -5,7 +5,7 @@ dataDir = 'data';
 
 list=what('./data');
 
-resultsDir='output';
+resultsDir='./output/blurred_oldfiles';
 
 for iterator =1:numel(list.mat)
 disp (list.mat(iterator));
