@@ -15,7 +15,7 @@ disp (list(iterator).name);
 
 vidFile=fullfile(dataDir, list(iterator).name);
 vidFile;
-
+[~,vidName] = fileparts(vidFile);
  vid = VideoReader(vidFile);
     % Extract video info
     vidHeight = vid.Height;
@@ -27,13 +27,15 @@ vidFile;
     
     startIndex = 1;
     endIndex = len-10;
+   
+%    Gdown_stack=1;
     
     disp('Spatial filtering...')
-    Gdown_stack = build_GDown_stack(vidFile, startIndex, endIndex, level);
+  Gdown_stack = build_GDown_stack(vidFile, startIndex, endIndex, level);
     disp('Finished')
 
 
-save(fullfile(resultsDir,['Blurred' vidFile]), 'Gdown_stack');
+save(fullfile(resultsDir,['Gdown_' vidName '.mat']), 'Gdown_stack');
 
 
 
