@@ -1,9 +1,9 @@
 %make Gdown_stacks of the 16th line files
 
 
-dataDir = 'E:\Grad School\Master''s\CanonVideos\16 line test';
+dataDir = 'E:\Grad School\Master''s\CanonVideos\16 line test\cuts';
 
-list=dir ('E:\Grad School\Master''s\CanonVideos\16 line test\*.MOV');
+list=dir ('E:\Grad School\Master''s\CanonVideos\16 line test\cuts\*.mp4');
 
 resultsDir='./output/16';
 
