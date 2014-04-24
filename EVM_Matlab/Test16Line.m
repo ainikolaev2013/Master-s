@@ -7,7 +7,7 @@ list=dir ('E:\Grad School\Master''s\CanonVideos\16 line test\*.MOV');
 
 resultsDir='./output/16';
 
-level=5;
+level=4;
 
 
 for iterator =1:numel(list)
@@ -23,19 +23,20 @@ vidFile;
     nChannels = 3;
     fr = vid.FrameRate;
     len = vid.NumberOfFrames;
-    
-    
-    startIndex = 1;
+      startIndex = 1;
     endIndex = len-10;
+    
+
+   
    
 %    Gdown_stack=1;
     
-    disp('Spatial filtering...')
-  Gdown_stack = build_GDown_stack(vidFile, startIndex, endIndex, level);
+    disp('Spacial filtering...')
+    Gdown_stack = build_GDown_stack_canon(vidFile, startIndex, endIndex, level);
     disp('Finished')
 
 
-save(fullfile(resultsDir,['Gdown_' vidName '.mat']), 'Gdown_stack');
+save(fullfile(resultsDir,['Gdown_stack_' vidName '.mat']), 'Gdown_stack');
 
 
 
