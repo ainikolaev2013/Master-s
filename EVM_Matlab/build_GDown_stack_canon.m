@@ -46,8 +46,9 @@ frame=rgbframe;
             [rgbframe,~] = frame2im(temp);
 
             rgbframe = im2double(rgbframe);
-            frame = rgb2ntsc(rgbframe);
-
+ %           frame = rgb2ntsc(rgbframe);
+            frame=rgbframe;
+            
             blurred = blurDnClr(frame,level);
             GDown_stack(k,:,:,:) = blurred;
 
