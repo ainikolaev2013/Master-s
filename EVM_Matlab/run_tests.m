@@ -1,6 +1,6 @@
 %Run various filters
 %The input is expected to be a 64x64 stack of video
-
+tic
 
 dataDir = 'F:\SPBSU\Masters\EVM_Matlab\data\16';
 list=dir([dataDir '\*.mat']);
@@ -29,19 +29,90 @@ Record(4);
 %create the 1x1 stack
 level=4;  %64x64 input stacks!
 disp('Spacial filtering...')
-Stack1 = build_GDown_stack_stack4(StackFile, level);
+Stack1x1 = build_GDown_stack_stack4(StackFile, level);
 disp('Finished filtering...')
+
+%looking into the first channel
+Stack1=squeeze(Stack1x1(:,:,:,1));
 
 %have the 64x64 stack at hand
 load(StackFile, 'Stack');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Our algorithm
-dct_stack=dct_filt(squeeze(Stack1(:,:,:,1)));
+disp('DCT algorithm...');
+dct_stack=dct_filt(Stack1);
+disp('DCT filtering done.');
+
 dct_result=length(findpeaks(dct_stack))
 
+
+disp('DCT finished.');
+%TO DO save the results
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%MIT algorithm
+disp('MIT algorithm...');
+samplingRate=25;
+
+%TO DO find out appropriate values, refer to ReproduceResults for examples
+fl=40/60;
+fh=70/60;
+disp('Temporal filtering...')
+MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
+disp('Temporal filtering done.')
+
+
+
+MIT_result=length(findpeaks(MIT_stack))
+disp('MIT finished.');
+
+%TO DO save the results
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%JADE algorithm
+%input data needs to be represented in a different fashion here
+disp('JADE...');
+disp('Normalization...');
+normalized1x1=normalize_data(squeeze(Stack1x1));
+disp('JADE filtering...');
+JADE_stack=filter_jade(normalized1x1);
+disp('JADE filtering done.');
+
+
+JADE_result=length(findpeaks(JADE_stack))
+
+disp('JADE finished.');
+
+%TO DO save the results
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%OMP algorithm
+disp('OMP...');
+
+disp('OMP filtering...');
+
+%TO DO find out some real value
+K_target=20;
+OMP_stack=filter_sparse_noiterator(Stack1, K_target);
+disp('OMP filtering done.');
+
+OMP_result=length(findpeaks(OMP_stack))
+
+disp('OMP finished.');
+%TO DO save the results
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clear('Stack');
 clear('Stack1');
 clear('Record');
 end;
+
+
+toc
