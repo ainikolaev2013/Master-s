@@ -36,9 +36,9 @@ frame=rgbframe;
     Stack = zeros(endIndex - startIndex +1, size(cropped,1),size(cropped,2),size(cropped,3));
     Stack(1,:,:,:) = cropped;
 
-    k = 1;
+    k = 1
     for j=startIndex+1:endIndex
-            k = k+1;
+            k = k+1
             temp.cdata = read(vid, j);
             [rgbframe,~] = frame2im(temp);
 
