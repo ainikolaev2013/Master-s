@@ -13,7 +13,7 @@ intervalx = [150:850];
 intervaly = [70:700];
 
 %failed earlier
-for iterator =6:numel(list)
+for iterator =7:numel(list)
     tic
 disp (list(iterator).name);
 

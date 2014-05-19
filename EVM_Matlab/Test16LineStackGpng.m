@@ -1,6 +1,6 @@
 %Test 64x64 stacks for 16 line
 
-dataDir = 'F:\SPBSU\Masters\EVM_Matlab\data\16';
+dataDir = 'F:\SPBSU\Masters\EVM_Matlab\data\16\stab';
 list=dir([dataDir '\*.mat']);
 resultsDir='./output/16';
 
@@ -18,8 +18,11 @@ StackFile;
     disp('Spacial filtering...')
     Gdown_stack = build_GDown_stack_stack4(StackFile, level);
     disp('Finished filtering...')
+%ntsc spectrum
+stack_ntsc=rgb2ntsc(squeeze(Gdown_stack));
 
-dataf=spectrum_cell(squeeze(Gdown_stack(:,:,:,1)));
+%dataf=spectrum_cell(squeeze(Gdown_stack(:,:,:,1)));
+dataf=spectrum_cell(squeeze(stack_ntsc(:,1)));
 
 fig=plot([2:300]/length(dataf)*25, abs(dataf(3:300+1)), 'r');
 title([StackName  ' channel 1'])
