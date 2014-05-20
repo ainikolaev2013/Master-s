@@ -2,7 +2,7 @@
 
 %dataDir = 'F:\SPBSU\Masters\EVM_Matlab\data\hand';
 dataDir = './output/hand'; %for one night batch only!
-list=dir([dataDir '\*256.mat']);
+list=dir([dataDir '\*192.mat']);
 resultsDir='./output/hand';
 
 level=4;
@@ -17,7 +17,7 @@ StackFile;
 %    Gdown_stack=1;
     
     disp('Spacial filtering...')
-    Gdown_stack = build_GDown_stack_stack256(StackFile, level);
+    Gdown_stack = build_GDown_stack_stack192(StackFile, level);
     disp('Finished filtering...')
 %ntsc spectrum
 NTSC_stack=rgb2ntsc(squeeze(Gdown_stack));
