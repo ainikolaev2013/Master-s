@@ -36,7 +36,7 @@ lu, rd, outName)
     crd = rd;
         
  %   for i = start_frame:end_frame        
-     for i = 1:len
+     for i = 1:len  
          i
         temp.cdata = read(vid, i);
         [rgbframe2, ~] = frame2im(temp);
