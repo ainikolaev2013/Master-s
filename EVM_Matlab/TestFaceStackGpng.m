@@ -39,11 +39,11 @@ NTSCF_stack=rgb2ntsc(squeeze(F_stack));
 dataf=spectrum_cell(squeeze(NTSC_stack(:,1)));
 dataFf=spectrum_cell(squeeze(NTSCF_stack(:,1)));
 
-fig=plot([2:50]/length(dataf)*30, abs(dataf(3:50+1)), 'r');
+fig=plot([2:299]/length(dataf)*30, abs(dataf(3:299+1)), 'r');
 title([StackName  ' NTSC'])
   saveas(fig, fullfile(resultsDir,[StackName '-spectrum.png']));
   
-fig=plot([2:50]/length(dataFf)*30, abs(dataFf(3:50+1)), 'r');
+fig=plot([2:299]/length(dataFf)*30, abs(dataFf(3:299+1)), 'r');
 title([StackName  ' NTSCF'])
   saveas(fig, fullfile(resultsDir,[StackName '-spectrumF.png']));
 
