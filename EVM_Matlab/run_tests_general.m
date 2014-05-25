@@ -14,8 +14,9 @@ runID=datestr(now, 'yyyymmddHHMM');
 Overall_run=[];
 
 
-for iterator =1:numel(list)
 
+for iterator =1:numel(list)
+Results_run=[];
 disp (list(iterator).name);
 
 
@@ -48,32 +49,81 @@ K_target=5;
 %determines saving location
 record_type='face';
 elseif strcmp(Record(1),'6351') && strcmp(Record(2),'cut1')
-K= 0.005;
+K= 0.007;
 samplingRate=25;
 fl=40/60;
 fh=70/60;
-K_target=10;
+K_target=7;
 record_type='hand';
 elseif strcmp(Record(1),'6351') && strcmp(Record(2),'cut2')
-K= 0.005;
+K= 0.007;
 samplingRate=25;
 fl=40/60;
 fh=70/60;
-K_target=10;
+K_target=7;
 record_type='hand';
 elseif strcmp(Record(1),'6353') && strcmp(Record(2),'cut1')
-K= 0.005;
+K= 0.015;
 samplingRate=25;
 fl=40/60;
 fh=70/60;
-K_target=10;
+K_target=40;
+record_type='hand';
+elseif strcmp(Record(1),'6353') && strcmp(Record(2),'cut2')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=40;
+record_type='hand';
+elseif strcmp(Record(1),'6355') && strcmp(Record(2),'cut1')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=9;
+record_type='hand';
+elseif strcmp(Record(1),'6355') && strcmp(Record(2),'cut2')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=9;
+record_type='hand';
+elseif strcmp(Record(1),'6356') && strcmp(Record(2),'cut1')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=9;
+record_type='hand';
+elseif strcmp(Record(1),'6356') && strcmp(Record(2),'cut2')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=9;
+record_type='hand';
+elseif strcmp(Record(1),'6357') && strcmp(Record(2),'cut1')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=13;
+record_type='hand';
+elseif strcmp(Record(1),'6357') && strcmp(Record(2),'cut2')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=13;
 record_type='hand';
 else
-K= 0.005;
+K= 0.006;
 samplingRate=25;
 fl=40/60;
 fh=70/60;
-K_target=10;
+K_target=5;
 record_type='hand';
 end
 
@@ -97,12 +147,15 @@ load(StackFile, 'Stack');
 %Our algorithm
 disp('DCT algorithm...');
 
+for K = 0.001:0.0005:0.030
+
 dct_stack=dct_filt(Stack1, K);
 disp('DCT filtering done.');
 
-dct_result=length(findpeaks(dct_stack))
+dct_result=length(findpeaks(dct_stack));
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result];
 
-
+end
 
 disp('DCT finished.');
 %TO DO save the results
@@ -116,8 +169,8 @@ disp('Temporal filtering...')
 MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
 disp('Temporal filtering done.')
 
-MIT_result=length(findpeaks(MIT_stack))
-
+MIT_result=length(findpeaks(MIT_stack));
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result];
 disp('MIT finished.');
 
 
@@ -135,7 +188,8 @@ JADE_stack=filter_jade(normalized1x1);
 disp('JADE filtering done.');
 
 
-JADE_result=length(findpeaks(JADE_stack))
+JADE_result=length(findpeaks(JADE_stack));
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
 disp('JADE finished.');
 
 
@@ -147,12 +201,14 @@ disp('OMP...');
 
 disp('OMP filtering...');
 
+for K_target = 1:40
 
 OMP_stack=filter_sparse_noiterator(Stack1, K_target);
 disp('OMP filtering done.');
 
-OMP_result=length(findpeaks(OMP_stack))
-
+OMP_result=length(findpeaks(OMP_stack));
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
+end
 
 
 disp('OMP finished.');
@@ -160,22 +216,10 @@ disp('OMP finished.');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%Results_save=[];
+
 load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
 
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result];
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result];
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
-
-
-Results_run = [runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result;
-runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result;
-runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result;
-runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
-
-
-%run results asving location determination
+%run results saving location determination
  
 
 resultsDir=strcat('./output/', record_type, '/results');
@@ -184,15 +228,16 @@ save_loc_cell=fullfile(resultsDir, strcat(runID, Record(1), '_', Record(3), '_',
 save_loc=save_loc_cell{1}
 
 %save(fullfile(resultsDir,[runID 'Results.mat']), 'Results_run');
-
 save(save_loc, 'Results_run');
 
+
+Results_save=[Results_save; Results_run];
 save(fullfile(globalresultsDir,['Results.mat']), 'Results_save');
 
 
-Overall_run= [Overall_run; Results_run];
+Overall_run= [Overall_run; Results_run]
 %Results_save
-Results_run;
+%Results_run
 clear('Stack');
 clear('Stack1');
 clear('Record');
