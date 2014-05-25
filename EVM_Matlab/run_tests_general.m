@@ -2,24 +2,22 @@
 %The input is expected to be a 64x64 stack of video
 tic
 
-dataDir = './output/face/noisy';
+dataDir = './data/hand';
 list=dir([dataDir '\*.mat']);
-resultsDir='./output/face/results';
+
 globalresultsDir='./Results';
 
 %useful to make sense of what was run when
 runID=datestr(now, 'yyyymmddHHMM');
 
 
-
-%Results_save=[];
+Overall_run=[];
 
 
 for iterator =1:numel(list)
 
 disp (list(iterator).name);
 
-load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
 
 StackFile=fullfile(dataDir, list(iterator).name);
 StackFile;
@@ -28,11 +26,56 @@ StackFile;
 %parse the file name
 Record=strsplit(StackName, '_');
 %file name
+Record(1);
+%cut name
 Record(2);
 %stack number
 Record(3);
 %noise level
 Record(4);
+
+
+%setting parameters
+if strcmp(Record(1),'face')
+%DCT K parameter
+K= 0.006;
+%MIT parameters
+samplingRate=30;
+fl=40/60;
+fh=70/60;
+%OMP K_target value
+K_target=5;
+%determines saving location
+record_type='face';
+elseif strcmp(Record(1),'6351') && strcmp(Record(2),'cut1')
+K= 0.005;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=10;
+record_type='hand';
+elseif strcmp(Record(1),'6351') && strcmp(Record(2),'cut2')
+K= 0.005;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=10;
+record_type='hand';
+elseif strcmp(Record(1),'6353') && strcmp(Record(2),'cut1')
+K= 0.005;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=10;
+record_type='hand';
+else
+K= 0.005;
+samplingRate=25;
+fl=40/60;
+fh=70/60;
+K_target=10;
+record_type='hand';
+end
 
 %create the 1x1 stack
 level=4;  %64x64 input stacks!
@@ -53,13 +96,12 @@ load(StackFile, 'Stack');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Our algorithm
 disp('DCT algorithm...');
-K= 0.006;
+
 dct_stack=dct_filt(Stack1, K);
 disp('DCT filtering done.');
 
 dct_result=length(findpeaks(dct_stack))
 
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result]
 
 
 disp('DCT finished.');
@@ -69,17 +111,12 @@ disp('DCT finished.');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %MIT algorithm
 disp('MIT algorithm...');
-samplingRate=30;
 
-%TO DO find out appropriate values, refer to ReproduceResults for examples
-fl=40/60;
-fh=70/60;
 disp('Temporal filtering...')
 MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
 disp('Temporal filtering done.')
 
 MIT_result=length(findpeaks(MIT_stack))
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result]
 
 disp('MIT finished.');
 
@@ -99,9 +136,6 @@ disp('JADE filtering done.');
 
 
 JADE_result=length(findpeaks(JADE_stack))
-
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result]
-
 disp('JADE finished.');
 
 
@@ -113,8 +147,7 @@ disp('OMP...');
 
 disp('OMP filtering...');
 
-%TO DO find out some real value
-K_target=5;
+
 OMP_stack=filter_sparse_noiterator(Stack1, K_target);
 disp('OMP filtering done.');
 
@@ -125,7 +158,15 @@ OMP_result=length(findpeaks(OMP_stack))
 disp('OMP finished.');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result]
+
+
+%Results_save=[];
+load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
+
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result];
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result];
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
 
 
 Results_run = [runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result;
@@ -134,17 +175,24 @@ runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result;
 runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
 
 
-clear('Stack');
-clear('Stack1');
-clear('Record');
+%run results asving location determination
+ 
 
-save(fullfile(resultsDir,[runID 'Results.mat']), 'Results_run');
-%TO DO local results saving
+resultsDir=strcat('./output/', record_type, '/results');
+
+save_loc_cell=fullfile(resultsDir, strcat(runID, Record(1), '_', Record(3), '_', Record(4), '_Results.mat'));
+save_loc=save_loc_cell{1}
+
+%save(fullfile(resultsDir,[runID 'Results.mat']), 'Results_run');
+
+save(save_loc, 'Results_run');
 
 save(fullfile(globalresultsDir,['Results.mat']), 'Results_save');
 
+
+Overall_run= [Overall_run; Results_run];
 %Results_save
-Results_run
+Results_run;
 clear('Stack');
 clear('Stack1');
 clear('Record');

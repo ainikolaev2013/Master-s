@@ -2,9 +2,9 @@
 %The input is expected to be a 64x64 stack of video
 tic
 
-dataDir = './output/face/noisy';
+dataDir = './data/hand';
 list=dir([dataDir '\*.mat']);
-resultsDir='./output/face/results';
+resultsDir='./output/hand/results';
 globalresultsDir='./Results';
 
 %useful to make sense of what was run when
@@ -12,14 +12,12 @@ runID=datestr(now, 'yyyymmddHHMM');
 
 
 
-%Results_save=[];
 
 
 for iterator =1:numel(list)
 
 disp (list(iterator).name);
 
-load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
 
 StackFile=fullfile(dataDir, list(iterator).name);
 StackFile;
@@ -59,7 +57,6 @@ disp('DCT filtering done.');
 
 dct_result=length(findpeaks(dct_stack))
 
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result]
 
 
 disp('DCT finished.');
@@ -79,7 +76,6 @@ MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
 disp('Temporal filtering done.')
 
 MIT_result=length(findpeaks(MIT_stack))
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result]
 
 disp('MIT finished.');
 
@@ -99,9 +95,6 @@ disp('JADE filtering done.');
 
 
 JADE_result=length(findpeaks(JADE_stack))
-
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result]
-
 disp('JADE finished.');
 
 
@@ -125,7 +118,15 @@ OMP_result=length(findpeaks(OMP_stack))
 disp('OMP finished.');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result]
+
+
+%Results_save=[];
+load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
+
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result];
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'MIT' 'n/a' MIT_result];
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
+Results_save=[Results_save; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
 
 
 Results_run = [runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result;
@@ -134,14 +135,17 @@ runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result;
 runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
 
 
-clear('Stack');
-clear('Stack1');
-clear('Record');
 
-save(fullfile(resultsDir,[runID 'Results.mat']), 'Results_run');
-%TO DO local results saving
+
+save_loc_cell=fullfile(resultsDir, strcat(runID, Record(1), '_', Record(3), '_', Record(4), '_Results.mat'));
+save_loc=save_loc_cell{1}
+
+%save(fullfile(resultsDir,[runID 'Results.mat']), 'Results_run');
+
+save(save_loc, 'Results_run');
 
 save(fullfile(globalresultsDir,['Results.mat']), 'Results_save');
+
 
 %Results_save
 Results_run
