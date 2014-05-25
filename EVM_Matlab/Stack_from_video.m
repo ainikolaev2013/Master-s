@@ -10,6 +10,9 @@ fprintf('Processing %s\n', vidFile);
 
     % Read video
 vid = VideoReader(vidFile);
+
+%Only for Win Server 2008 till codecs are OK
+lastFrame = read(vid, inf);
     % Extract video info
     vidHeight = vid.Height;
     vidWidth = vid.Width;

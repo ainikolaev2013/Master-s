@@ -1,5 +1,5 @@
-dataDir = './data';
-resultsDir = './output';
+dataDir = 'C:\Users\Administrator\Google Drive\Grad School\Master''s\CanonVideos\Maria';
+resultsDir = 'C:\Users\Administrator\Google Drive\Grad School\Master''s\ain_results-20140218';
 mkdir(resultsDir);
 
 filename = '3780_cut3_stabforehead_stack.mat';  

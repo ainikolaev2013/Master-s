@@ -2,10 +2,10 @@
 %The input is expected to be a 64x64 stack of video
 tic
 
-dataDir = './data/face';
+dataDir = 'C:\Users\Administrator\Google Drive\Grad School\Master''s\ain_results-20140525\face_64x64';
 list=dir([dataDir '\*.mat']);
 
-globalresultsDir='./Results';
+globalresultsDir='C:\Users\Administrator\Google Drive\Grad School\Master''s\VMx\Results';
 
 %useful to make sense of what was run when
 runID=datestr(now, 'yyyymmddHHMM');
@@ -229,8 +229,7 @@ load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
 
 %run results saving location determination
  
-
-resultsDir=strcat('./output/', record_type, '/results');
+resultsDir=strcat('C:\Users\Administrator\Google Drive\Grad School\Master''s\VMx\output\', record_type, '\results');
 
 save_loc_cell=fullfile(resultsDir, strcat(runID, Record(1), '_', Record(3), '_', Record(4), '_Results.mat'));
 save_loc=save_loc_cell{1}
@@ -469,7 +468,7 @@ load(fullfile(globalresultsDir,['Results.mat']), 'Results_save')
 %run results saving location determination
  
 
-resultsDir=strcat('./output/', record_type, '/results');
+resultsDir=strcat('C:\Users\Administrator\Google Drive\Grad School\Master''s\VMx\output\', record_type, '\results');
 
 save_loc_cell=fullfile(resultsDir, strcat(runID, Record(1), '_', Record(3), '_', Record(4), '_Results.mat'));
 save_loc=save_loc_cell{1}
@@ -482,7 +481,7 @@ Results_save=[Results_save; Results_run];
 save(fullfile(globalresultsDir,['Results.mat']), 'Results_save');
 
 
-Overall_run= [Overall_run; Results_run]
+Overall_run= [Overall_run; Results_run];
 %Results_save
 %Results_run
 clear('Stack');

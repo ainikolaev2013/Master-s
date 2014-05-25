@@ -1,8 +1,8 @@
 %add specific amounts of noise to the stacks in the folder
 tic
-dataDir = './data/hand/';
+dataDir = 'C:\Users\Administrator\Google Drive\Grad School\Master''s\ain_results-20140525\hand_64x64';
 list=dir([dataDir '\*.mat']);
-resultsDir='f:\spbSU\masters\evM_Matlab\output\hand\noisy';
+resultsDir='C:\Users\Administrator\Google Drive\Grad School\Master''s\ain_results-20140525\hand_64x64';
 
 
 
