@@ -14,6 +14,7 @@ runID=datestr(now, 'yyyymmddHHMM');
 Overall_run=[];
 
 
+<<<<<<< HEAD
 %5Hz filtration
 for iterator =1:numel(list)
 Results_run=[];
@@ -254,6 +255,9 @@ clear('Results_run');
 end;
 
 %NO 5Hz filtration
+=======
+%5Hz filtration added
+>>>>>>> 4b42d3157ac98121e5e69e04d53632814e58ccf7
 for iterator =1:numel(list)
 Results_run=[];
 disp (list(iterator).name);
@@ -370,6 +374,7 @@ end
 level=4;  %64x64 input stacks!
 disp('Spacial filtering...')
 Stack1x1 = build_GDown_stack_stack4(StackFile, level);
+Stack1x1_5Hz = ideal_bandpassing(Stack1x1, 1, 30/60, 300/60, samplingRate);
 
 disp('Finished filtering...')
 
@@ -379,6 +384,8 @@ disp('Finished filtering...')
 Stack1ntsc=rgb2ntsc(squeeze(Stack1x1));
 Stack1=Stack1ntsc(:,1);
 
+Stack1ntsc5Hz=rgb2ntsc(squeeze(Stack1x1_5Hz));
+Stack1_5Hz=Stack1ntsc5Hz(:,1);
 
 %have the 64x64 stack at hand
 load(StackFile, 'Stack');
@@ -390,10 +397,13 @@ disp('DCT algorithm...');
 for K = 0.001:0.0005:0.030
 
 dct_stack=dct_filt(Stack1, K);
+dct_stack5Hz=dct_filt(Stack1_5Hz, K);
 disp('DCT filtering done.');
 
 dct_result=length(findpeaks(dct_stack));
+dct_result5Hz=length(findpeaks(dct_stack5Hz));
 Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'DCT' num2str(K) dct_result];
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'DCT 5Hz' num2str(K) dct_result5Hz];
 
 end
 
@@ -411,10 +421,13 @@ fl=low/60;
 fh=high/60;
 disp('Temporal filtering...')
 MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
+MIT_stack5Hz = ideal_bandpassing(Stack1_5Hz, 1, fl, fh, samplingRate);
 disp('Temporal filtering done.')
 
 MIT_result=length(findpeaks(MIT_stack));
+MIT_result5Hz=length(findpeaks(MIT_stack5Hz));
 Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT' strcat(num2str(fl*60), '-', num2str(fh*60)) MIT_result];
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT 5Hz' strcat(num2str(fl*60), '-', num2str(fh*60)) MIT_result5Hz];
 disp('MIT finished.');
     end
 end
@@ -429,13 +442,17 @@ disp('JADE...');
 disp('Normalization...');
 %RGB is needed here 
 normalized1x1=normalize_data(squeeze(Stack1x1));
+normalized1x1_5Hz=normalize_data(squeeze(Stack1x1_5Hz));
 disp('JADE filtering...');
 JADE_stack=filter_jade(normalized1x1);
+JADE_stack5Hz=filter_jade(normalized1x1_5Hz);
 disp('JADE filtering done.');
 
 
 JADE_result=length(findpeaks(JADE_stack));
+JADE_result5Hz=length(findpeaks(JADE_stack5Hz));
 Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE 5Hz' 'n/a' JADE_result5Hz];
 disp('JADE finished.');
 
 
@@ -450,10 +467,13 @@ disp('OMP filtering...');
 for K_target = 1:40
 
 OMP_stack=filter_sparse_noiterator(Stack1, K_target);
+OMP_stack5Hz=filter_sparse_noiterator(Stack1_5Hz, K_target);
 disp('OMP filtering done.');
 
 OMP_result=length(findpeaks(OMP_stack));
+OMP_result5Hz=length(findpeaks(OMP_stack5Hz));
 Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'OMP' num2str(K_target) OMP_result];
+Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'OMP 5Hz' num2str(K_target) OMP_result5Hz];
 end
 
 
@@ -491,4 +511,5 @@ clear('Results_save');
 clear('Results_run');
 
 end;
+
 toc
