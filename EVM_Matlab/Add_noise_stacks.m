@@ -1,10 +1,10 @@
 %add specific amounts of noise to the stacks in the folder
 tic
-dataDir = 'C:\Users\Administrator\Google Drive\Grad School\Master''s\ain_results-20140525\hand_64x64';
+dataDir = './data/maria';
 list=dir([dataDir '\*.mat']);
-resultsDir='C:\Users\Administrator\Google Drive\Grad School\Master''s\ain_results-20140525\hand_64x64';
+resultsDir='./output/maria';
 
-
+mkdir(resultsDir);
 
 for iterator =1:numel(list)
 disp (list(iterator).name);
