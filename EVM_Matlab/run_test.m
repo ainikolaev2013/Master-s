@@ -97,6 +97,13 @@ fl=40/60;
 fh=80/60;
 K_target=13;
 record_type='hand';
+elseif strcmp(Record(1),'maria')
+K= 0.015;
+samplingRate=25;
+fl=40/60;
+fh=80/60;
+K_target=13;
+record_type='maria';
 else
 K= 0.006;
 samplingRate=25;
@@ -106,11 +113,24 @@ K_target=5;
 record_type='hand';
 end
 
+%have the 64x64 stack at hand
+load(StackFile, 'Stack');
+
 %create the 1x1 stack
 level=4;  %64x64 input stacks!
 disp('Spacial filtering...')
-Stack1x1 = build_GDown_stack_stack4(StackFile, level);
-Stack1x1_5Hz = ideal_bandpassing(Stack1x1, 1, 30/60, 300/60, samplingRate);
+size_stack=size(Stack)
+
+
+if strcmp(Record(1),'maria')
+    for iterator = 1:size_stack(1)
+        Stack1x1(iterator,:,:,:)=imresize(squeeze(Stack(iterator,:,:,:)), [1 1]);
+    end
+else
+    Stack1x1 = build_GDown_stack_stack4(StackFile, level);
+end
+
+    Stack1x1_5Hz = ideal_bandpassing(Stack1x1, 1, 30/60, 300/60, samplingRate);
 
 disp('Finished filtering...')
 
@@ -123,14 +143,13 @@ Stack1=Stack1ntsc(:,1);
 Stack1ntsc5Hz=rgb2ntsc(squeeze(Stack1x1_5Hz));
 Stack1_5Hz=Stack1ntsc5Hz(:,1);
 
-%have the 64x64 stack at hand
-load(StackFile, 'Stack');
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Our algorithm
 disp('DCT algorithm...');
 
-for K = 0.001:0.0005:0.030
+for K = 0.001:0.001:0.131
 
 dct_stack=dct_filt(Stack1, K);
 dct_stack5Hz=dct_filt(Stack1_5Hz, K);
@@ -200,7 +219,7 @@ disp('OMP...');
 
 disp('OMP filtering...');
 
-for K_target = 1:40
+for K_target = 1:400
 
 OMP_stack=filter_sparse_noiterator(Stack1, K_target);
 OMP_stack5Hz=filter_sparse_noiterator(Stack1_5Hz, K_target);

@@ -2,7 +2,7 @@
 %The input is expected to be a 64x64 stack of video
 tic
 
-dataDir = './data/face';
+dataDir = './data/maria';
 list=dir([dataDir '\*.mat']);
 
 globalresultsDir='./Results';
@@ -22,7 +22,7 @@ disp (list(iterator).name);
 
 StackFile=fullfile(dataDir, list(iterator).name);
 StackFile;
-Overall_run=run_test(StackFile, runID, globalresultsDir, Overall_run);
+Overall_run=run_test(StackFile, runID, globalresultsDir, Overall_run)
 end;
 
 toc
