@@ -11,10 +11,11 @@
    x = sin(2*pi*Fc*t)% +  sigma*random_d(t)  %add noise
    for iterator = 1:size(x)
        x=x+sigma*random_d(iterator);
+       Sta
    end
    % Plot the signal versus time:
    figure;
    plot(t,x);
    xlabel('time (in seconds)');
    title('Signal versus Time');
-   Stack=[t x];
+   Stack=[t x]; %[1:StopTime*Fs], not t!
