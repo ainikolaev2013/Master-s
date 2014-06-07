@@ -64,7 +64,7 @@ save_loc=save_loc_cell{1}
 
 save(save_loc, 'Stack');
 
-Overall_run=run_test(save_loc, runID, globalresultsDir, Overall_run)
+Overall_run=run_test_test(save_loc, runID, globalresultsDir, Overall_run)
 delete(save_loc)
 end;
   
