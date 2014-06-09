@@ -15,7 +15,7 @@ runID=datestr(now, 'yyyymmddHHMM');
 
 
 Overall_run=[];
-for loop_number = 1:10 
+for loop_number = 1:30 
 for iterator =1:numel(list)
 disp (list(iterator).name);
 StackFile=fullfile(dataDir, list(iterator).name);

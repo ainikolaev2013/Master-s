@@ -168,24 +168,24 @@ disp('DCT finished.');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %MIT algorithm
-for low = 30:10:50
-    for high = 70:10:100
-disp('MIT algorithm...');
-
-fl=low/60;
-fh=high/60;
-disp('Temporal filtering...')
-MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
-MIT_stack5Hz = ideal_bandpassing(Stack1_5Hz, 1, fl, fh, samplingRate);
-disp('Temporal filtering done.')
-
-MIT_result=length(findpeaks(MIT_stack));
-MIT_result5Hz=length(findpeaks(MIT_stack5Hz));
-Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT' strcat(num2str(fl*60), '-', num2str(fh*60)) MIT_result];
-Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT 5Hz' strcat(num2str(fl*60), '-', num2str(fh*60)) MIT_result5Hz];
-disp('MIT finished.');
-    end
-end
+% for low = 30:10:50
+%     for high = 70:10:100
+% disp('MIT algorithm...');
+% 
+% fl=low/60;
+% fh=high/60;
+% disp('Temporal filtering...')
+% MIT_stack = ideal_bandpassing(Stack1, 1, fl, fh, samplingRate);
+% MIT_stack5Hz = ideal_bandpassing(Stack1_5Hz, 1, fl, fh, samplingRate);
+% disp('Temporal filtering done.')
+% 
+% MIT_result=length(findpeaks(MIT_stack));
+% MIT_result5Hz=length(findpeaks(MIT_stack5Hz));
+% Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT' strcat(num2str(fl*60), '-', num2str(fh*60)) MIT_result];
+% Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'MIT 5Hz' strcat(num2str(fl*60), '-', num2str(fh*60)) MIT_result5Hz];
+% disp('MIT finished.');
+%     end
+% end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -193,22 +193,22 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %JADE algorithm
 %input data needs to be represented in a different fashion here
-disp('JADE...');
-disp('Normalization...');
-%RGB is needed here 
-normalized1x1=normalize_data(squeeze(Stack1x1));
-normalized1x1_5Hz=normalize_data(squeeze(Stack1x1_5Hz));
-disp('JADE filtering...');
-JADE_stack=filter_jade(normalized1x1);
-JADE_stack5Hz=filter_jade(normalized1x1_5Hz);
-disp('JADE filtering done.');
-
-
-JADE_result=length(findpeaks(JADE_stack));
-JADE_result5Hz=length(findpeaks(JADE_stack5Hz));
-Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
-Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE 5Hz' 'n/a' JADE_result5Hz];
-disp('JADE finished.');
+% disp('JADE...');
+% disp('Normalization...');
+% %RGB is needed here 
+% normalized1x1=normalize_data(squeeze(Stack1x1));
+% normalized1x1_5Hz=normalize_data(squeeze(Stack1x1_5Hz));
+% disp('JADE filtering...');
+% JADE_stack=filter_jade(normalized1x1);
+% JADE_stack5Hz=filter_jade(normalized1x1_5Hz);
+% disp('JADE filtering done.');
+% 
+% 
+% JADE_result=length(findpeaks(JADE_stack));
+% JADE_result5Hz=length(findpeaks(JADE_stack5Hz));
+% Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE' 'n/a' JADE_result];
+% Results_run=[Results_run; runID  Record(1) Record(3) Record(4) 'JADE 5Hz' 'n/a' JADE_result5Hz];
+% disp('JADE finished.');
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
