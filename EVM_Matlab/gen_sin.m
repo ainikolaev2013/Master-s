@@ -8,7 +8,7 @@
    %% Sine wave:
    Fc = 90/60;                     % hertz
    %x = sin(2*pi*Fc*t);
-   random_d= rand(size(t))-0.5;
+   random_d= randn(size(t));
    x = sin(2*pi*Fc*t);% +  sigma*random_d(t)  %add noise
    for iterator = 1:size(x)
        x(iterator)=x(iterator)+sigma*random_d(iterator);
